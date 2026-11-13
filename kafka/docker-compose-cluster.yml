@@ -1,0 +1,69 @@
+# Cluster Kafka de 3 brokers — usado nos cenários avançados 2 (Replicação) e 3 (Falha de broker).
+# Mesma imagem do compose de broker único (Confluent 7.5.0 = Apache Kafka 3.5, modo ZooKeeper).
+#
+# O "name" abaixo põe estes containers num projeto próprio (kafka-cluster), separado do
+# broker único (projeto "kafka"), mesmo com os dois arquivos na mesma pasta.
+#
+# Antes de subir, pare o compose de broker único para liberar memória:
+#   docker compose down                                   (broker único)
+#   docker compose -f docker-compose-cluster.yml up -d    (cluster)
+# Para desligar o cluster:
+#   docker compose -f docker-compose-cluster.yml down
+# Os clientes se conectam por 127.0.0.1:19092, 19093 e 19094.
+# Os nomes dos containers (kafka-1, kafka-2, kafka-3) precisam bater com o broker.id:
+# o Cenário 3 derruba o container "kafka-<id do líder>".
+
+name: kafka-cluster
+
+services:
+  zookeeper-cluster:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: zookeeper-cluster
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka-1:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka-1
+    depends_on: [zookeeper-cluster]
+    ports: ["19092:19092"]
+    environment: &kafka-env
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper-cluster:2181
+      # Queda detectada em ~6 s (padrão 18 s): o ZooKeeper só remove o broker morto quando a sessão expira
+      KAFKA_ZOOKEEPER_SESSION_TIMEOUT_MS: 6000
+      # A liderança não volta sozinha ao broker religado no meio da medição (Cenário 3);
+      # a quorum queue do RabbitMQ também não devolve a liderança. Padrão: true, a cada 300 s.
+      KAFKA_AUTO_LEADER_REBALANCE_ENABLE: "false"
+      KAFKA_LISTENERS: INTERNAL://0.0.0.0:29092,EXTERNAL://0.0.0.0:19092
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka-1:29092,EXTERNAL://127.0.0.1:19092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_HEAP_OPTS: "-Xmx768M -Xms768M"
+
+  kafka-2:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka-2
+    depends_on: [zookeeper-cluster]
+    ports: ["19093:19093"]
+    environment:
+      <<: *kafka-env
+      KAFKA_BROKER_ID: 2
+      KAFKA_LISTENERS: INTERNAL://0.0.0.0:29092,EXTERNAL://0.0.0.0:19093
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka-2:29092,EXTERNAL://127.0.0.1:19093
+
+  kafka-3:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka-3
+    depends_on: [zookeeper-cluster]
+    ports: ["19094:19094"]
+    environment:
+      <<: *kafka-env
+      KAFKA_BROKER_ID: 3
+      KAFKA_LISTENERS: INTERNAL://0.0.0.0:29092,EXTERNAL://0.0.0.0:19094
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka-3:29092,EXTERNAL://127.0.0.1:19094
