@@ -1,0 +1,4 @@
+tecnologia,garantia,execucoes_latencia,latencia_tipica_ms,aumento_tipica_vs_amo_ms,latencia_media_mediana_ms,latencia_media_min_ms,latencia_media_max_ms,execucoes_vazao,vazao_mediana_msg_s,vazao_min_msg_s,vazao_max_msg_s
+RabbitMQ,at-most-once,10,1.9560,0.0000,2.0909,1.6516,17.9312,10,9701.4350,8195.2000,10964.8900
+RabbitMQ,at-least-once,10,1.7222,-0.2338,2.3232,2.0069,3.2725,10,5051.0500,4674.7000,5764.0700
+RabbitMQ,exactly-once,10,1.8211,-0.1349,2.3934,2.0208,3.5966,10,5009.4850,4245.9500,5820.6500

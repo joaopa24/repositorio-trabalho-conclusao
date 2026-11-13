@@ -1,0 +1,3 @@
+tecnologia,taxa_invalidas_pct,execucoes,vazao_mediana_msg_s,vazao_min_msg_s,vazao_max_msg_s,variacao_vs_0pct,dlq_confere,metadados_ok
+RabbitMQ,0,10,4145.40,3509.14,4953.65,0.00,10/10,10/10
+RabbitMQ,10,10,2940.90,2617.09,3313.17,-29.06,10/10,10/10

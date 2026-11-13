@@ -1,0 +1,6 @@
+tecnologia,config,num_consumidores,num_particoes,execucoes,vazao_mediana_msg_s,vazao_min_msg_s,vazao_max_msg_s,ganho,eficiencia_pct,utilizacao_pct,espera_mediana_s,tempo_proc_medio_ms,menor_parcela,maior_parcela,consumidores_ativos
+Kafka,1c-1p,1,1,10,171.8250,164.3800,172.4200,1.0000,100.0000,98.6148,17.4331,5.7395,6000,6000,1
+Kafka,2c-2p,2,2,10,339.8050,323.2100,344.6800,1.9776,98.8811,97.5867,8.7557,5.7456,3000,3000,2
+Kafka,4c-4p,4,4,10,653.1200,504.5400,670.9900,3.8011,95.0269,94.8354,4.4826,5.8243,1500,1500,4
+Kafka,6c-6p,6,6,10,939.8800,696.7600,975.5900,5.4700,91.1664,91.5467,3.1467,5.8096,1000,1000,6
+Kafka,6c-4p,6,4,10,649.1900,488.7100,673.2900,3.7782,62.9701,95.1700,4.5097,5.8463,0,1500,4

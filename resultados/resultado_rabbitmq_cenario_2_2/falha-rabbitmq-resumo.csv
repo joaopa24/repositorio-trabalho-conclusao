@@ -1,0 +1,4 @@
+tecnologia,garantia,execucoes,processadas_c1_mediana,duplicadas_mediana,duplicadas_min,duplicadas_max,perdidas_mediana,perdidas_min,perdidas_max,descartadas_mediana,recuperacao_mediana_ms,recuperacao_min_ms,recuperacao_max_ms,execucoes_sem_recuperacao
+RabbitMQ,at-most-once,10,1000.00,0.00,0,0,3800.00,2200,4000,0.00,577.74,569.50,626.58,5
+RabbitMQ,at-least-once,10,1000.00,1.00,1,1,0.00,0,0,0.00,562.17,527.36,861.85,0
+RabbitMQ,exactly-once,10,1000.00,0.00,0,0,0.00,0,0,1.00,555.66,531.95,683.40,0

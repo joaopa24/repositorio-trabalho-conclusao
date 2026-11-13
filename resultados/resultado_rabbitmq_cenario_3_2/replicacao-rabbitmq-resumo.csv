@@ -1,0 +1,5 @@
+tecnologia,configuracao,execucoes,latencia_mediana_ms,latencia_min_ms,latencia_max_ms,aumento_latencia_ms,aumento_latencia_pct,vazao_mediana_msg_s,vazao_min_msg_s,vazao_max_msg_s,variacao_vazao_pct,vazao_produtor_mediana_msg_s,referencia
+RabbitMQ,Clássica,10,2.03,1.97,2.22,,,3144.11,2086.63,3597.45,,3149.84,—
+RabbitMQ,Quorum-1,10,7.88,7.73,8.12,5.85,288.80,3055.39,2490.94,3862.22,-2.82,5109.72,Clássica
+RabbitMQ,Quorum-2,10,13.03,12.87,1790.75,5.15,65.35,2203.74,1297.15,2782.12,-27.87,3312.62,Quorum-1
+RabbitMQ,Quorum-3,10,12.79,12.28,15.13,4.91,62.33,1778.12,1116.66,2423.24,-41.80,2608.18,Quorum-1

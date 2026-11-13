@@ -1,0 +1,4 @@
+tecnologia,politica,execucoes,taxa_producao_mediana_msg_s,rejeicoes_mediana,pico_fila_mediana,perdidas_mediana,perdidas_min,perdidas_max,tempo_total_mediana_s,pico_armazenamento_mb_mediana
+RabbitMQ,sem-limite,10,999.59,0.00,16504.50,0.00,0,0,117.07,15.59
+RabbitMQ,com-limite,10,999.60,0.00,2100.00,14449.50,14420,15126,31.97,2.05
+RabbitMQ,com-limite-recusa,10,196.14,81959.50,2100.00,0.00,0,0,114.07,2.05

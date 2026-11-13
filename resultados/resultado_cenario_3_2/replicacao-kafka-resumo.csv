@@ -1,0 +1,4 @@
+tecnologia,configuracao,execucoes,latencia_mediana_ms,latencia_min_ms,latencia_max_ms,aumento_latencia_ms,aumento_latencia_pct,vazao_mediana_msg_s,vazao_min_msg_s,vazao_max_msg_s,variacao_vazao_pct,vazao_produtor_mediana_msg_s,referencia
+Kafka,RF 1,10,3.79,3.56,5.87,,,10522.99,9364.76,12296.03,,10768.51,—
+Kafka,RF 2,10,4.73,4.57,5.20,0.94,24.85,8337.47,7201.30,9031.15,-20.77,8351.21,RF 1
+Kafka,RF 3,10,5.20,4.74,15.12,1.42,37.41,6941.94,6134.59,8429.58,-34.03,6945.35,RF 1

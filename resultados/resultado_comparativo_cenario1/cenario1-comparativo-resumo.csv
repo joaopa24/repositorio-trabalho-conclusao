@@ -1,0 +1,19 @@
+﻿Métrica,RabbitMQ,Kafka
+Latência mediana/execução: mediana,1.87 ms,3.19 ms
+Latência mediana/execução: caixa (Q1–Q3),1.66 – 1.98 ms,3.15 – 3.39 ms
+Latência mediana/execução: bigodes,1.56 – 2.04 ms,3.09 – 3.63 ms
+Latência mediana/execução: outliers (ms),nenhum,nenhum
+Latência de todas as mensagens: mediana,1.82 ms,3.25 ms
+Latência mediana/execução: mín–máx,1.56 – 2.04 ms,3.09 – 3.63 ms
+"Mensagens > 10 ms, por execução",0.0% – 1.0%,1.5% – 6.3%
+"Mensagens > 100 ms, por execução",0.00% – 0.01%,0.00% – 0.60%
+Maior latência registrada,100.7 ms,370.6 ms
+Vazão do produtor: mediana,200.01 msg/s,200.01 msg/s
+Vazão do produtor (mín–máx),200.01 – 200.01 msg/s,199.98 – 200.01 msg/s
+Atraso do gerador: mediana,2.1 µs,4.2 µs
+Atraso do gerador: 99% das mensagens abaixo de,0.022 ms,0.348 ms
+Mensagens com atraso do gerador > 1 ms,0.25%,0.63%
+Maior atraso do gerador,53.7 ms,71.9 ms
+A partir do planejado: latência mediana/execução (mediana),1.87 ms,3.19 ms
+"A partir do planejado: mensagens > 10 ms, por execução",0.1% – 1.1%,1.5% – 6.4%
+A partir do planejado: maior latência,139.9 ms,370.6 ms

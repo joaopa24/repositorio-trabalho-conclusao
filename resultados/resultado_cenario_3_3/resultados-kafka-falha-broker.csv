@@ -1,0 +1,10 @@
+execucao,ordem,configuracao,garantia,idempotencia,enviadas,confirmadas,falhas_envio,sem_resposta,recebidas_unicas,entregas,duplicadas,redeliveries,perdidas,nao_entregues,cancelamentos,lider_derrubado,era_controlador,novo_lider,lider_final,t_queda_s,t_volta_s,eleicao_ms,maior_intervalo_sem_confirmacao_ms,maior_pausa_entrega_ms
+1,1,acks-all,replicas,true,12000,12000,0,0,12000,12000,0,0,0,0,0,1,false,2,2,20.050,40.000,9269.6,9433.1,5912.3
+1,2,acks-1,lider,false,12000,12000,0,0,12000,12000,0,0,0,0,0,1,false,2,2,20.053,40.000,9049.4,7353.3,7609.1
+1,3,acks-0,nenhuma,false,12000,-1,0,0,11943,11943,0,0,-1,57,0,1,false,2,2,20.112,40.000,9600.0,-1,9380.8
+2,1,acks-1,lider,false,12000,12000,0,0,12000,12000,0,0,0,0,0,1,false,2,2,20.026,40.000,8755.3,7396.1,6713.6
+2,2,acks-0,nenhuma,false,12000,-1,0,0,11965,11965,0,0,-1,35,0,1,false,2,2,20.025,40.000,5795.6,-1,5634.4
+2,3,acks-all,replicas,true,12000,12000,0,0,12000,12000,0,0,0,0,0,1,false,2,2,20.018,40.000,8819.6,9039.2,9254.4
+3,1,acks-0,nenhuma,false,12000,-1,0,0,11964,11964,0,0,-1,36,0,1,false,2,2,20.028,40.000,6424.1,-1,9149.1
+3,2,acks-all,replicas,true,12000,12000,0,0,12000,12000,0,0,0,0,0,1,false,2,2,20.043,40.000,9064.7,8714.9,9032.2
+3,3,acks-1,lider,false,12000,12000,0,0,12000,12000,0,0,0,0,0,1,false,2,2,20.154,40.000,6818.9,6441.4,6684.4

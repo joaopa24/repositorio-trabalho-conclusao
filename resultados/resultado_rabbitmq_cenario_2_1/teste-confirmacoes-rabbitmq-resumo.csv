@@ -1,0 +1,6 @@
+variacao,confirms,modo_ack,execucoes,vazao_mediana_msg_s,vazao_q1_msg_s,vazao_q3_msg_s,dif_vs_v1_pct,produtor_mediana_msg_s,duplicatas_total
+v1-semconfirms-auto,nao,auto,10,10433.88,10006.82,11842.37,0.00,10877.37,0
+v2-confirms-auto,sim,auto,10,8898.31,8750.44,9313.33,-14.72,8919.01,0
+v3-semconfirms-manual,nao,manual,10,5344.60,5094.47,5719.31,-48.78,9118.27,0
+v4-confirms-manual,sim,manual,10,5246.34,4914.62,5726.06,-49.72,5223.91,0
+v5-confirms-lote,sim,lote,10,6840.74,6365.60,7104.79,-34.44,6765.07,0

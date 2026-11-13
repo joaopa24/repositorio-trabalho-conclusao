@@ -1,0 +1,14 @@
+tecnologia,modo,execucoes,corretas,esperadas,recebidas_mediana,primeira_seq,ultima_seq,descartadas_total,t_primeira_mediana_ms,t_primeira_min_ms,t_primeira_max_ms,vazao_mediana_msg_s,vazao_min_msg_s,vazao_max_msg_s
+Kafka,normal,10,10,50000,50000,1,50000,-,3268.94,3228.36,3377.28,43928,31759,53689
+Kafka,grupo-existente,10,10,0,0,-1,-1,-,-1,-1,-1,-1,-1,-1
+Kafka,inicio,10,10,50000,50000,1,50000,-,143.53,120.48,172.58,41260,35653,51943
+Kafka,timestamp,10,10,25000,25000,25001,50000,-,138.75,118.62,178.72,40968,32213,52456
+Kafka,offset,10,10,1000,1000,49001,50000,-,118.16,103.19,206.00,60989,49091,72707
+Kafka,novo-grupo,10,10,50000,50000,1,50000,-,3248.26,3229.19,3301.84,50402,37452,55362
+RabbitMQ,classica,10,10,50000,50000,1,50000,0,68.60,50.83,82.90,15028,12042,17046
+RabbitMQ,normal-stream,10,10,50000,50000,1,50000,0,68.91,61.76,86.45,12898,11692,13867
+RabbitMQ,classica-de-novo,10,10,0,0,-1,-1,0,-1,-1,-1,-1,-1,-1
+RabbitMQ,posicao-salva,10,10,0,0,-1,-1,0,-1,-1,-1,-1,-1,-1
+RabbitMQ,inicio,10,10,50000,50000,1,50000,0,74.80,53.53,106.99,13662,11501,13905
+RabbitMQ,timestamp,10,10,25000,25000,25001,50000,0,66.25,61.76,95.37,11648,10496,12673
+RabbitMQ,offset,10,10,1000,1000,49001,50000,0,79.04,63.43,146.81,9221,6961,10470

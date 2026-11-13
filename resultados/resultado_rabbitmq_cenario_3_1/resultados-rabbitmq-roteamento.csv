@@ -1,0 +1,28 @@
+execucao,ordem,topologia,abordagem,onde_roteia,exchanges,filas,bindings,topicos,consumidor,regra,destinos_lidos,esperadas,recebidas,aceitas,descartadas,faltando,duplicadas,sem_destino,copias_no_broker,correto
+1,1,direto,direct,broker,1,4,4,0,C-sudeste,regiao = sudeste,1,1500,1500,1500,0,0,0,0,6000,true
+1,1,direto,direct,broker,1,4,4,0,C-sul,regiao = sul,1,1500,1500,1500,0,0,0,0,6000,true
+1,1,direto,direct,broker,1,4,4,0,C-nordeste,regiao = nordeste,1,1500,1500,1500,0,0,0,0,6000,true
+1,1,direto,direct,broker,1,4,4,0,C-norte,regiao = norte,1,1500,1500,1500,0,0,0,0,6000,true
+1,2,curinga,topic,broker,1,2,2,0,A,pedidos.*.criado,1,2000,2000,2000,0,0,0,3000,3500,true
+1,2,curinga,topic,broker,1,2,2,0,B,pedidos.sudeste.#,1,1500,1500,1500,0,0,0,3000,3500,true
+1,3,fanout,fanout,broker,1,3,3,0,C1,todas,1,6000,6000,6000,0,0,0,0,18000,true
+1,3,fanout,fanout,broker,1,3,3,0,C2,todas,1,6000,6000,6000,0,0,0,0,18000,true
+1,3,fanout,fanout,broker,1,3,3,0,C3,todas,1,6000,6000,6000,0,0,0,0,18000,true
+2,1,curinga,topic,broker,1,2,2,0,A,pedidos.*.criado,1,2000,2000,2000,0,0,0,3000,3500,true
+2,1,curinga,topic,broker,1,2,2,0,B,pedidos.sudeste.#,1,1500,1500,1500,0,0,0,3000,3500,true
+2,2,fanout,fanout,broker,1,3,3,0,C1,todas,1,6000,6000,6000,0,0,0,0,18000,true
+2,2,fanout,fanout,broker,1,3,3,0,C2,todas,1,6000,6000,6000,0,0,0,0,18000,true
+2,2,fanout,fanout,broker,1,3,3,0,C3,todas,1,6000,6000,6000,0,0,0,0,18000,true
+2,3,direto,direct,broker,1,4,4,0,C-sudeste,regiao = sudeste,1,1500,1500,1500,0,0,0,0,6000,true
+2,3,direto,direct,broker,1,4,4,0,C-sul,regiao = sul,1,1500,1500,1500,0,0,0,0,6000,true
+2,3,direto,direct,broker,1,4,4,0,C-nordeste,regiao = nordeste,1,1500,1500,1500,0,0,0,0,6000,true
+2,3,direto,direct,broker,1,4,4,0,C-norte,regiao = norte,1,1500,1500,1500,0,0,0,0,6000,true
+3,1,fanout,fanout,broker,1,3,3,0,C1,todas,1,6000,6000,6000,0,0,0,0,18000,true
+3,1,fanout,fanout,broker,1,3,3,0,C2,todas,1,6000,6000,6000,0,0,0,0,18000,true
+3,1,fanout,fanout,broker,1,3,3,0,C3,todas,1,6000,6000,6000,0,0,0,0,18000,true
+3,2,direto,direct,broker,1,4,4,0,C-sudeste,regiao = sudeste,1,1500,1500,1500,0,0,0,0,6000,true
+3,2,direto,direct,broker,1,4,4,0,C-sul,regiao = sul,1,1500,1500,1500,0,0,0,0,6000,true
+3,2,direto,direct,broker,1,4,4,0,C-nordeste,regiao = nordeste,1,1500,1500,1500,0,0,0,0,6000,true
+3,2,direto,direct,broker,1,4,4,0,C-norte,regiao = norte,1,1500,1500,1500,0,0,0,0,6000,true
+3,3,curinga,topic,broker,1,2,2,0,A,pedidos.*.criado,1,2000,2000,2000,0,0,0,3000,3500,true
+3,3,curinga,topic,broker,1,2,2,0,B,pedidos.sudeste.#,1,1500,1500,1500,0,0,0,3000,3500,true

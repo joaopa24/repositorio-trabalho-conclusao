@@ -1,0 +1,7 @@
+garantia,tecnologia,latencia_tipica_ms,latencia_mediana_min_ms,latencia_mediana_max_ms,latencia_media_mediana_ms,latencia_media_min_ms,latencia_media_max_ms,vazao_msg_s_mediana,vazao_msg_s_min,vazao_msg_s_max,vazao_produtor_msg_s_mediana
+at-most-once,Kafka,3.8602,3.7440,4.7157,6.0499,4.8778,8.4400,8455.6200,7585.4400,10946.9600,13900.9950
+at-most-once,RabbitMQ,1.9560,1.5311,15.5672,2.0909,1.6516,17.9312,9701.4350,8195.2000,10964.8900,10441.5900
+at-least-once,Kafka,3.8699,3.6402,4.5118,5.5144,5.1785,9.8682,9575.7500,8729.9500,11473.2500,10624.7050
+at-least-once,RabbitMQ,1.7222,1.6882,2.0113,2.3232,2.0069,3.2725,5051.0500,4674.7000,5764.0700,5030.5750
+exactly-once,Kafka,61.3867,60.0681,71.9002,62.0737,59.8197,73.4911,8579.8600,7369.6000,10764.4600,9577.1950
+exactly-once,RabbitMQ,1.8211,1.5594,2.4219,2.3934,2.0208,3.5966,5009.4850,4245.9500,5820.6500,4997.0800

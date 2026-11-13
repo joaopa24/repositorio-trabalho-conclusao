@@ -1,0 +1,46 @@
+execucao,ordem,topologia,abordagem,onde_roteia,exchanges,filas,bindings,topicos,consumidor,regra,destinos_lidos,esperadas,recebidas,aceitas,descartadas,faltando,duplicadas,sem_destino,copias_no_broker,correto
+1,1,direto,filtro,consumidor,0,0,0,1,C-sudeste,regiao = sudeste,1,1500,6000,1500,4500,0,0,0,6000,true
+1,1,direto,filtro,consumidor,0,0,0,1,C-sul,regiao = sul,1,1500,6000,1500,4500,0,0,0,6000,true
+1,1,direto,filtro,consumidor,0,0,0,1,C-nordeste,regiao = nordeste,1,1500,6000,1500,4500,0,0,0,6000,true
+1,1,direto,filtro,consumidor,0,0,0,1,C-norte,regiao = norte,1,1500,6000,1500,4500,0,0,0,6000,true
+1,2,direto,topicos,produtor,0,0,0,4,C-sudeste,regiao = sudeste,1,1500,1500,1500,0,0,0,0,6000,true
+1,2,direto,topicos,produtor,0,0,0,4,C-sul,regiao = sul,1,1500,1500,1500,0,0,0,0,6000,true
+1,2,direto,topicos,produtor,0,0,0,4,C-nordeste,regiao = nordeste,1,1500,1500,1500,0,0,0,0,6000,true
+1,2,direto,topicos,produtor,0,0,0,4,C-norte,regiao = norte,1,1500,1500,1500,0,0,0,0,6000,true
+1,3,curinga,filtro,consumidor,0,0,0,1,A,pedidos.*.criado,1,2000,6000,2000,4000,0,0,3000,6000,true
+1,3,curinga,filtro,consumidor,0,0,0,1,B,pedidos.sudeste.#,1,1500,6000,1500,4500,0,0,3000,6000,true
+1,4,curinga,padrao,produtor,0,0,0,12,A,pedidos.*.criado,4,2000,2000,2000,0,0,0,3000,6000,true
+1,4,curinga,padrao,produtor,0,0,0,12,B,pedidos.sudeste.#,3,1500,1500,1500,0,0,0,3000,6000,true
+1,5,fanout,grupos,nenhum,0,0,0,1,C1,todas,1,6000,6000,6000,0,0,0,0,6000,true
+1,5,fanout,grupos,nenhum,0,0,0,1,C2,todas,1,6000,6000,6000,0,0,0,0,6000,true
+1,5,fanout,grupos,nenhum,0,0,0,1,C3,todas,1,6000,6000,6000,0,0,0,0,6000,true
+2,1,direto,topicos,produtor,0,0,0,4,C-sudeste,regiao = sudeste,1,1500,1500,1500,0,0,0,0,6000,true
+2,1,direto,topicos,produtor,0,0,0,4,C-sul,regiao = sul,1,1500,1500,1500,0,0,0,0,6000,true
+2,1,direto,topicos,produtor,0,0,0,4,C-nordeste,regiao = nordeste,1,1500,1500,1500,0,0,0,0,6000,true
+2,1,direto,topicos,produtor,0,0,0,4,C-norte,regiao = norte,1,1500,1500,1500,0,0,0,0,6000,true
+2,2,curinga,filtro,consumidor,0,0,0,1,A,pedidos.*.criado,1,2000,6000,2000,4000,0,0,3000,6000,true
+2,2,curinga,filtro,consumidor,0,0,0,1,B,pedidos.sudeste.#,1,1500,6000,1500,4500,0,0,3000,6000,true
+2,3,curinga,padrao,produtor,0,0,0,12,A,pedidos.*.criado,4,2000,2000,2000,0,0,0,3000,6000,true
+2,3,curinga,padrao,produtor,0,0,0,12,B,pedidos.sudeste.#,3,1500,1500,1500,0,0,0,3000,6000,true
+2,4,fanout,grupos,nenhum,0,0,0,1,C1,todas,1,6000,6000,6000,0,0,0,0,6000,true
+2,4,fanout,grupos,nenhum,0,0,0,1,C2,todas,1,6000,6000,6000,0,0,0,0,6000,true
+2,4,fanout,grupos,nenhum,0,0,0,1,C3,todas,1,6000,6000,6000,0,0,0,0,6000,true
+2,5,direto,filtro,consumidor,0,0,0,1,C-sudeste,regiao = sudeste,1,1500,6000,1500,4500,0,0,0,6000,true
+2,5,direto,filtro,consumidor,0,0,0,1,C-sul,regiao = sul,1,1500,6000,1500,4500,0,0,0,6000,true
+2,5,direto,filtro,consumidor,0,0,0,1,C-nordeste,regiao = nordeste,1,1500,6000,1500,4500,0,0,0,6000,true
+2,5,direto,filtro,consumidor,0,0,0,1,C-norte,regiao = norte,1,1500,6000,1500,4500,0,0,0,6000,true
+3,1,curinga,filtro,consumidor,0,0,0,1,A,pedidos.*.criado,1,2000,6000,2000,4000,0,0,3000,6000,true
+3,1,curinga,filtro,consumidor,0,0,0,1,B,pedidos.sudeste.#,1,1500,6000,1500,4500,0,0,3000,6000,true
+3,2,curinga,padrao,produtor,0,0,0,12,A,pedidos.*.criado,4,2000,2000,2000,0,0,0,3000,6000,true
+3,2,curinga,padrao,produtor,0,0,0,12,B,pedidos.sudeste.#,3,1500,1500,1500,0,0,0,3000,6000,true
+3,3,fanout,grupos,nenhum,0,0,0,1,C1,todas,1,6000,6000,6000,0,0,0,0,6000,true
+3,3,fanout,grupos,nenhum,0,0,0,1,C2,todas,1,6000,6000,6000,0,0,0,0,6000,true
+3,3,fanout,grupos,nenhum,0,0,0,1,C3,todas,1,6000,6000,6000,0,0,0,0,6000,true
+3,4,direto,filtro,consumidor,0,0,0,1,C-sudeste,regiao = sudeste,1,1500,6000,1500,4500,0,0,0,6000,true
+3,4,direto,filtro,consumidor,0,0,0,1,C-sul,regiao = sul,1,1500,6000,1500,4500,0,0,0,6000,true
+3,4,direto,filtro,consumidor,0,0,0,1,C-nordeste,regiao = nordeste,1,1500,6000,1500,4500,0,0,0,6000,true
+3,4,direto,filtro,consumidor,0,0,0,1,C-norte,regiao = norte,1,1500,6000,1500,4500,0,0,0,6000,true
+3,5,direto,topicos,produtor,0,0,0,4,C-sudeste,regiao = sudeste,1,1500,1500,1500,0,0,0,0,6000,true
+3,5,direto,topicos,produtor,0,0,0,4,C-sul,regiao = sul,1,1500,1500,1500,0,0,0,0,6000,true
+3,5,direto,topicos,produtor,0,0,0,4,C-nordeste,regiao = nordeste,1,1500,1500,1500,0,0,0,0,6000,true
+3,5,direto,topicos,produtor,0,0,0,4,C-norte,regiao = norte,1,1500,1500,1500,0,0,0,0,6000,true

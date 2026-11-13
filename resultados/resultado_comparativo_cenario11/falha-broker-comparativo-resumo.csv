@@ -1,0 +1,6 @@
+tecnologia,configuracao,garantia,execucoes,maior_pausa_mediana_s,maior_pausa_min_s,maior_pausa_max_s,pausas_acima_mediana_s,pausas_acima_min_s,pausas_acima_max_s,retomada_mediana_s,retomada_min_s,retomada_max_s,maior_intervalo_antes_da_queda_s,maior_intervalo_depois_da_janela_s,maior_intervalo_sem_confirmacao_mediana_ms,perdidas_mediana,nao_entregues_mediana,nao_entregues_min,nao_entregues_max,duplicadas_total,redeliveries_total
+Kafka,acks-all,Confirmação após as réplicas,3,9.032,5.912,9.254,9.254,9.032,9.416,10.408,9.729,10.888,0.135,0.120,9039.2,0,0,0,0,0,0
+RabbitMQ,confirms,Confirmação após as réplicas,3,0.281,0.246,0.441,0.000,0.000,0.000,0.613,0.537,2.698,0.083,0.099,281.3,0,0,0,0,0,0
+Kafka,acks-1,Confirmação só do líder,3,6.714,6.684,7.609,6.714,6.684,7.609,7.993,7.524,8.148,0.209,0.182,7353.3,0,0,0,0,0,0
+Kafka,acks-0,Sem confirmação,3,9.149,5.634,9.381,9.149,8.866,9.381,9.633,9.396,10.730,0.296,0.116,-1,-1,36,35,57,0,0
+RabbitMQ,sem-confirms,Sem confirmação,3,0.325,0.291,0.485,0.000,0.000,0.000,0.638,0.608,0.868,0.088,0.138,-1,-1,0,0,0,0,0

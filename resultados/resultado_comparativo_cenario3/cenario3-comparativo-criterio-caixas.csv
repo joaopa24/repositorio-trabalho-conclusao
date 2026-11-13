@@ -1,0 +1,10 @@
+tamanho_kb,latencia_melhor,vazao_melhor
+1,RabbitMQ,Kafka
+2,RabbitMQ,Kafka
+5,sobrepostas,sobrepostas
+10,sobrepostas,RabbitMQ
+20,sobrepostas,RabbitMQ
+50,Kafka,RabbitMQ
+100,RabbitMQ,RabbitMQ
+200,sobrepostas,RabbitMQ
+500,RabbitMQ,RabbitMQ

@@ -1,0 +1,4 @@
+tecnologia,garantia,execucoes_latencia,latencia_tipica_ms,aumento_tipica_vs_amo_ms,latencia_media_mediana_ms,latencia_media_min_ms,latencia_media_max_ms,execucoes_vazao,vazao_mediana_msg_s,vazao_min_msg_s,vazao_max_msg_s
+Kafka,at-most-once,10,3.8602,0.0000,6.0499,4.8778,8.4400,10,8455.6200,7585.4400,10946.9600
+Kafka,at-least-once,10,3.8699,0.0096,5.5144,5.1785,9.8682,10,9575.7500,8729.9500,11473.2500
+Kafka,exactly-once,10,61.3867,57.5264,62.0737,59.8197,73.4911,10,8579.8600,7369.6000,10764.4600

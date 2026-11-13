@@ -1,0 +1,7 @@
+efeito,de,para,mediana_de,mediana_para,dif_pct,caixas_se_sobrepoem
+Só os confirms (com autoAck),v1,v2,10433.88,8898.31,-14.72,não
+Só o ACK por mensagem (sem confirms),v1,v3,10433.88,5344.60,-48.78,não
+Os dois juntos (at most → at least once),v1,v4,10433.88,5246.34,-49.72,não
+"Confirms, já com ACK por mensagem",v3,v4,5344.60,5246.34,-1.84,sim
+"ACK por mensagem, já com confirms",v2,v4,8898.31,5246.34,-41.04,não
+ACK em lote no lugar do ACK por mensagem,v4,v5,5246.34,6840.74,30.39,não

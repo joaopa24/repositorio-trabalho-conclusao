@@ -1,0 +1,4 @@
+tecnologia,analise,a_ms,b_ms_por_kb,r2,expoente_k,tamanhos_no_ajuste,tamanhos_fora,execucoes_lentas,execucoes
+Kafka,todas,3.771832,0.024575,0.999679,0.208293,9,,0,90
+RabbitMQ,todas,9.573865,0.004761,0.002866,0.247569,9,,21,90
+RabbitMQ,so_normais,2.982382,0.014409,0.968121,0.174633,9,,21,90

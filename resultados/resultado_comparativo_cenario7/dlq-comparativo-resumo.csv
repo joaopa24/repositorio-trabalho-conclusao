@@ -1,0 +1,5 @@
+tecnologia,taxa_invalidas_pct,execucoes,vazao_mediana_msg_s,vazao_min_msg_s,vazao_max_msg_s,variacao_vs_0pct,na_dlq_mediana,dlq_confere,metadados_ok,tentativas_por_invalida
+Kafka,0,10,8082.30,5555.52,9377.03,,0.00,10/10,10/10,
+RabbitMQ,0,10,4145.40,3509.14,4953.65,,0.00,10/10,10/10,
+Kafka,10,10,5199.49,4031.91,6220.47,-35.67,500.00,10/10,10/10,3.00
+RabbitMQ,10,10,2940.90,2617.09,3313.17,-29.06,500.00,10/10,10/10,3.00

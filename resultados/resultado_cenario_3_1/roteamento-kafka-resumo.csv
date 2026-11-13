@@ -1,0 +1,16 @@
+tecnologia,topologia,abordagem,onde_roteia,estrutura,consumidor,regra,execucoes,esperadas,recebidas,aceitas,descartadas,faltando_max,duplicadas_max,sem_destino,copias_no_broker,corretas
+Kafka,direto,filtro,consumidor,1 tópico,C-sudeste,regiao = sudeste,3,1500,6000,1500,4500,0,0,0,6000,3/3
+Kafka,direto,filtro,consumidor,1 tópico,C-sul,regiao = sul,3,1500,6000,1500,4500,0,0,0,6000,3/3
+Kafka,direto,filtro,consumidor,1 tópico,C-nordeste,regiao = nordeste,3,1500,6000,1500,4500,0,0,0,6000,3/3
+Kafka,direto,filtro,consumidor,1 tópico,C-norte,regiao = norte,3,1500,6000,1500,4500,0,0,0,6000,3/3
+Kafka,direto,topicos,produtor,4 tópicos,C-sudeste,regiao = sudeste,3,1500,1500,1500,0,0,0,0,6000,3/3
+Kafka,direto,topicos,produtor,4 tópicos,C-sul,regiao = sul,3,1500,1500,1500,0,0,0,0,6000,3/3
+Kafka,direto,topicos,produtor,4 tópicos,C-nordeste,regiao = nordeste,3,1500,1500,1500,0,0,0,0,6000,3/3
+Kafka,direto,topicos,produtor,4 tópicos,C-norte,regiao = norte,3,1500,1500,1500,0,0,0,0,6000,3/3
+Kafka,curinga,filtro,consumidor,1 tópico,A,pedidos.*.criado,3,2000,6000,2000,4000,0,0,3000,6000,3/3
+Kafka,curinga,filtro,consumidor,1 tópico,B,pedidos.sudeste.#,3,1500,6000,1500,4500,0,0,3000,6000,3/3
+Kafka,curinga,padrao,produtor,12 tópicos,A,pedidos.*.criado,3,2000,2000,2000,0,0,0,3000,6000,3/3
+Kafka,curinga,padrao,produtor,12 tópicos,B,pedidos.sudeste.#,3,1500,1500,1500,0,0,0,3000,6000,3/3
+Kafka,fanout,grupos,nenhum,1 tópico,C1,todas,3,6000,6000,6000,0,0,0,0,6000,3/3
+Kafka,fanout,grupos,nenhum,1 tópico,C2,todas,3,6000,6000,6000,0,0,0,0,6000,3/3
+Kafka,fanout,grupos,nenhum,1 tópico,C3,todas,3,6000,6000,6000,0,0,0,0,6000,3/3

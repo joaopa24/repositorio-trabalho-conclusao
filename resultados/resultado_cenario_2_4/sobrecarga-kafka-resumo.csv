@@ -1,0 +1,3 @@
+tecnologia,politica,execucoes,taxa_producao_mediana_msg_s,rejeicoes_mediana,pico_fila_mediana,perdidas_mediana,perdidas_min,perdidas_max,tempo_total_mediana_s,pico_armazenamento_mb_mediana
+Kafka,sem-limite,10,999.95,0.00,16519.50,0.00,0,0,116.03,21.07
+Kafka,com-limite,10,999.89,0.00,6304.50,14024.50,13092,14484,34.79,7.39

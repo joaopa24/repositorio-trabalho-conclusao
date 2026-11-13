@@ -1,0 +1,7 @@
+execucao,ordem,configuracao,garantia,idempotencia,enviadas,confirmadas,falhas_envio,sem_resposta,recebidas_unicas,entregas,duplicadas,redeliveries,perdidas,nao_entregues,cancelamentos,lider_derrubado,era_controlador,novo_lider,lider_final,t_queda_s,t_volta_s,eleicao_ms,maior_intervalo_sem_confirmacao_ms,maior_pausa_entrega_ms
+1,1,confirms,replicas,false,12000,12000,0,0,12000,12000,0,0,0,0,0,rabbit@rabbit-1,na,rabbit@rabbit-2,rabbit@rabbit-2,20.000,40.000,2341.7,281.3,280.8
+1,2,sem-confirms,nenhuma,false,12000,-1,0,0,12000,12000,0,0,-1,0,0,rabbit@rabbit-1,na,rabbit@rabbit-2,rabbit@rabbit-2,20.000,40.000,1968.4,-1,484.6
+2,1,sem-confirms,nenhuma,false,12000,-1,0,0,12000,12000,0,0,-1,0,0,rabbit@rabbit-1,na,rabbit@rabbit-3,rabbit@rabbit-3,20.000,40.000,1560.3,-1,324.9
+2,2,confirms,replicas,false,12000,12000,0,0,12000,12000,0,0,0,0,0,rabbit@rabbit-1,na,rabbit@rabbit-2,rabbit@rabbit-2,20.000,40.000,2285.5,256.3,245.8
+3,1,confirms,replicas,false,12000,12000,0,0,12000,12000,0,0,0,0,0,rabbit@rabbit-1,na,rabbit@rabbit-3,rabbit@rabbit-3,20.000,40.000,2678.8,474.7,440.6
+3,2,sem-confirms,nenhuma,false,12000,-1,0,0,12000,12000,0,0,-1,0,0,rabbit@rabbit-1,na,rabbit@rabbit-2,rabbit@rabbit-2,20.000,40.000,2741.5,-1,290.7

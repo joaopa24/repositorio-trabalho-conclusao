@@ -1,0 +1,10 @@
+tecnologia,topologia,abordagem,onde_roteia,estrutura,consumidor,regra,execucoes,esperadas,recebidas,aceitas,descartadas,faltando_max,duplicadas_max,sem_destino,copias_no_broker,corretas
+RabbitMQ,direto,direct,broker,"1 exchange, 4 filas, 4 bindings",C-sudeste,regiao = sudeste,3,1500,1500,1500,0,0,0,0,6000,3/3
+RabbitMQ,direto,direct,broker,"1 exchange, 4 filas, 4 bindings",C-sul,regiao = sul,3,1500,1500,1500,0,0,0,0,6000,3/3
+RabbitMQ,direto,direct,broker,"1 exchange, 4 filas, 4 bindings",C-nordeste,regiao = nordeste,3,1500,1500,1500,0,0,0,0,6000,3/3
+RabbitMQ,direto,direct,broker,"1 exchange, 4 filas, 4 bindings",C-norte,regiao = norte,3,1500,1500,1500,0,0,0,0,6000,3/3
+RabbitMQ,curinga,topic,broker,"1 exchange, 2 filas, 2 bindings",A,pedidos.*.criado,3,2000,2000,2000,0,0,0,3000,3500,3/3
+RabbitMQ,curinga,topic,broker,"1 exchange, 2 filas, 2 bindings",B,pedidos.sudeste.#,3,1500,1500,1500,0,0,0,3000,3500,3/3
+RabbitMQ,fanout,fanout,broker,"1 exchange, 3 filas, 3 bindings",C1,todas,3,6000,6000,6000,0,0,0,0,18000,3/3
+RabbitMQ,fanout,fanout,broker,"1 exchange, 3 filas, 3 bindings",C2,todas,3,6000,6000,6000,0,0,0,0,18000,3/3
+RabbitMQ,fanout,fanout,broker,"1 exchange, 3 filas, 3 bindings",C3,todas,3,6000,6000,6000,0,0,0,0,18000,3/3

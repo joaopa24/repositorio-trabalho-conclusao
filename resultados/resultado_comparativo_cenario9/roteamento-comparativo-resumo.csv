@@ -1,0 +1,9 @@
+topologia,tecnologia,abordagem,onde_roteia,estrutura,consumidores,execucoes,lidas_total,uteis_total,lidas_por_util,sem_destino,sem_destino_vao_para,copias_no_broker,copias_por_enviada,corretas
+direto,RabbitMQ,direct,broker,"1 exchange, 4 filas",4,3,6000.00,6000.00,1.00,0.00,—,6000.00,1.00,3/3
+direto,Kafka,filtro,consumidor,1 tópico,4,3,24000.00,6000.00,4.00,0.00,—,6000.00,1.00,3/3
+direto,Kafka,topicos,produtor,4 tópicos,4,3,6000.00,6000.00,1.00,0.00,—,6000.00,1.00,3/3
+curinga,RabbitMQ,topic,broker,"1 exchange, 2 filas",2,3,3500.00,3500.00,1.00,3000.00,descartadas pelo broker,3500.00,0.58,3/3
+curinga,Kafka,filtro,consumidor,1 tópico,2,3,12000.00,3500.00,3.43,3000.00,guardadas no broker,6000.00,1.00,3/3
+curinga,Kafka,padrao,produtor,12 tópicos,2,3,3500.00,3500.00,1.00,3000.00,guardadas no broker,6000.00,1.00,3/3
+fanout,RabbitMQ,fanout,broker,"1 exchange, 3 filas",3,3,18000.00,18000.00,1.00,0.00,—,18000.00,3.00,3/3
+fanout,Kafka,grupos,nenhum,1 tópico,3,3,18000.00,18000.00,1.00,0.00,—,6000.00,1.00,3/3

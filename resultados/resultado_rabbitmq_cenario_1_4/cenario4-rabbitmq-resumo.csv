@@ -1,0 +1,5 @@
+tecnologia,config,num_consumidores,num_particoes,execucoes,vazao_mediana_msg_s,vazao_min_msg_s,vazao_max_msg_s,ganho,eficiencia_pct,utilizacao_pct,espera_mediana_s,tempo_proc_medio_ms,menor_parcela,maior_parcela,consumidores_ativos
+RabbitMQ,1c,1,,10,174.8600,163.1300,177.0000,1.0000,100.0000,97.1772,16.8260,5.5524,6000,6000,1
+RabbitMQ,2c,2,,10,341.7700,324.0500,350.6700,1.9545,97.7268,96.6660,8.5596,5.6462,2992,3008,2
+RabbitMQ,4c,4,,10,663.3550,626.8000,677.0100,3.7936,94.8409,95.3583,4.2300,5.7440,1487,1516,4
+RabbitMQ,6c,6,,10,938.8700,862.6500,983.1900,5.3693,89.4878,93.3114,2.8901,5.9351,977,1023,6
