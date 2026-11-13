@@ -4,6 +4,8 @@ Código da ferramenta de testes usada no trabalho de conclusão de curso **"Aná
 
 A ferramenta executa **12 cenários** em três níveis (básico, intermediário e avançado), sempre com o mesmo desenho nas duas tecnologias, e grava os resultados de cada execução em arquivos CSV.
 
+O repositório também traz, na pasta [`resultados/`](resultados/), **os dados brutos usados no TCC** e os **scripts em Python que geram os gráficos e as tabelas**. Veja a seção [Resultados do TCC e gráficos](#resultados-do-tcc-e-gráficos).
+
 ---
 
 ## Estrutura do repositório
@@ -18,12 +20,16 @@ A ferramenta executa **12 cenários** em três níveis (básico, intermediário 
 │       ├── cenario1_1 … cenario1_4/            nível básico
 │       ├── cenario2_1 … cenario2_4/            nível intermediário
 │       └── cenario3_1 … cenario3_4/            nível avançado
-└── rabbitmq/                                projeto Spring Boot dos testes do RabbitMQ
-    ├── docker-compose.yml                   broker único (RabbitMQ 3.12)
-    ├── docker-compose-cluster-rabbitmq.yml  cluster de 3 nós (nível avançado, cenários 2 e 3)
-    ├── rabbitmq-cluster.conf                configuração do cluster (usada pelo compose acima)
-    └── src/main/java/com/benchmarking/rabbitmq/
-        └── (mesma organização do projeto kafka)
+├── rabbitmq/                                projeto Spring Boot dos testes do RabbitMQ
+│   ├── docker-compose.yml                   broker único (RabbitMQ 3.12)
+│   ├── docker-compose-cluster-rabbitmq.yml  cluster de 3 nós (nível avançado, cenários 2 e 3)
+│   ├── rabbitmq-cluster.conf                configuração do cluster (usada pelo compose acima)
+│   └── src/main/java/com/benchmarking/rabbitmq/
+│       └── (mesma organização do projeto kafka)
+└── resultados/                              dados brutos do TCC, scripts dos gráficos e PDFs gerados
+    ├── resultado_cenario_X_Y/               Kafka
+    ├── resultado_rabbitmq_cenario_X_Y/      RabbitMQ
+    └── resultado_comparativo_cenarioN/      Kafka × RabbitMQ
 ```
 
 Cada pasta `cenarioX_Y` tem três classes:
@@ -198,6 +204,57 @@ Em geral, cada cenário gera:
 - um CSV **detalhado** ou de **série**, com uma linha por mensagem ou por segundo, quando o cenário mede latência ou comportamento ao longo do tempo.
 
 > Rodar o mesmo cenário de novo **substitui** os CSVs dele. Copie a pasta antes, se quiser guardar a campanha anterior.
+
+Os resultados usados no TCC já estão em [`resultados/`](resultados/), com os mesmos nomes de pasta. Para gerar os gráficos com uma campanha nova, copie a pasta gerada (de `kafka/` ou `rabbitmq/`) para dentro de `resultados/`, substituindo a antiga.
+
+---
+
+## Resultados do TCC e gráficos
+
+A pasta [`resultados/`](resultados/) contém tudo o que foi usado na análise do TCC:
+
+- os **CSVs brutos** de cada cenário, nos dois formatos descritos acima;
+- um **script Python** em cada pasta, que lê esses CSVs e gera os gráficos e os resumos;
+- os **PDFs, PNGs e CSVs de resumo** já gerados por esses scripts (medianas, faixas, ajuste de curva etc.).
+
+As pastas seguem a numeração dos cenários do TCC:
+
+| Nível | Cenário | Kafka | RabbitMQ | Comparativo |
+|---|---|---|---|---|
+| Básico | 1 – Baseline | `resultado_cenario_1_1` | `resultado_rabbitmq_cenario_1_1` | `resultado_comparativo_cenario1` |
+| Básico | 2 – Consumidor lento | `resultado_cenario_1_2` | `resultado_rabbitmq_cenario_1_2` | `resultado_comparativo_cenario2` |
+| Básico | 3 – Tamanho da mensagem | `resultado_cenario_1_3` | `resultado_rabbitmq_cenario_1_3` | `resultado_comparativo_cenario3` |
+| Básico | 4 – Múltiplos consumidores | `resultado_cenario_1_4` | `resultado_rabbitmq_cenario_1_4` | `resultado_comparativo_cenario4` |
+| Intermediário | 1 – Garantias de entrega | `resultado_cenario_2_1` | `resultado_rabbitmq_cenario_2_1` | `resultado_comparativo_cenario5` |
+| Intermediário | 2 – Falha do consumidor | `resultado_cenario_2_2` | `resultado_rabbitmq_cenario_2_2` | `resultado_comparativo_cenario6` |
+| Intermediário | 3 – Dead letter queue | `resultado_cenario_2_3` | `resultado_rabbitmq_cenario_2_3` | `resultado_comparativo_cenario7` |
+| Intermediário | 4 – Sobrecarga prolongada | `resultado_cenario_2_4` | `resultado_rabbitmq_cenario_2_4` | `resultado_comparativo_cenario8` |
+| Avançado | 1 – Roteamento | `resultado_cenario_3_1` | `resultado_rabbitmq_cenario_3_1` | `resultado_comparativo_cenario9` |
+| Avançado | 2 – Replicação | `resultado_cenario_3_2` | `resultado_rabbitmq_cenario_3_2` | `resultado_comparativo_cenario10` |
+| Avançado | 3 – Falha de broker | `resultado_cenario_3_3` | `resultado_rabbitmq_cenario_3_3` | `resultado_comparativo_cenario11` |
+| Avançado | 4 – Replay | `resultado_cenario_3_4` | `resultado_rabbitmq_cenario_3_4` | `resultado_comparativo_cenario12` |
+
+As pastas **comparativas** não têm CSVs brutos próprios: o script delas lê os CSVs das pastas do Kafka e do RabbitMQ do mesmo cenário, que ficam ao lado, dentro de `resultados/`.
+
+### Como gerar os gráficos
+
+Requisitos: **Python 3** com `pandas`, `numpy` e `matplotlib`.
+
+```bash
+pip install pandas numpy matplotlib
+```
+
+Entre na pasta do cenário e rode o script que está nela. Exemplo com o Cenário 1 do nível básico:
+
+```bash
+cd resultados/resultado_cenario_1_1
+python plotar_cenario1_kafka.py                  # gráficos só do Kafka
+
+cd ../resultado_comparativo_cenario1
+python plotar_cenario1_comparativo.py            # Kafka × RabbitMQ
+```
+
+Cada script grava o PDF (e, quando houver, os PNGs e o CSV de resumo) na própria pasta, **substituindo os arquivos que já estão lá**. Para usar CSVs de outra pasta, passe o caminho como argumento: uma pasta nos scripts individuais (`python <script>.py <pasta_dos_csvs>`) e duas nos comparativos (`python <script>.py <pasta_kafka> <pasta_rabbitmq>`). As opções completas de cada script estão no comentário no topo dele.
 
 ---
 
