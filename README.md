@@ -6,6 +6,8 @@ A ferramenta executa **12 cenários** em três níveis (básico, intermediário 
 
 O repositório também traz, na pasta [`resultados/`](resultados/), **os dados brutos usados no TCC** e os **scripts em Python que geram os gráficos e as tabelas**. Veja a seção [Resultados do TCC e gráficos](#resultados-do-tcc-e-gráficos).
 
+> **Versão usada no TCC:** o código e os dados que produziram os resultados do trabalho estão marcados com a tag [`versao-tcc`](https://github.com/joaopa24/repositorio-trabalho-conclusao/tree/versao-tcc). Os commits posteriores acrescentam testes e documentação, sem alterar o código dos experimentos.
+
 ---
 
 ## Estrutura do repositório
@@ -15,17 +17,19 @@ O repositório também traz, na pasta [`resultados/`](resultados/), **os dados b
 ├── kafka/                                   projeto Spring Boot dos testes do Kafka
 │   ├── docker-compose.yml                   broker único (Kafka 3.5 + ZooKeeper)
 │   ├── docker-compose-cluster.yml           cluster de 3 brokers (nível avançado, cenários 2 e 3)
-│   └── src/main/java/com/benchmarking/kafka/
-│       ├── BenchmarkingKafkaApplication.java   ponto de entrada: escolhe o cenário
-│       ├── cenario1_1 … cenario1_4/            nível básico
-│       ├── cenario2_1 … cenario2_4/            nível intermediário
-│       └── cenario3_1 … cenario3_4/            nível avançado
+│   ├── src/main/java/com/benchmarking/kafka/
+│   │   ├── BenchmarkingKafkaApplication.java   ponto de entrada: escolhe o cenário
+│   │   ├── cenario1_1 … cenario1_4/            nível básico
+│   │   ├── cenario2_1 … cenario2_4/            nível intermediário
+│   │   └── cenario3_1 … cenario3_4/            nível avançado
+│   └── src/test/java/com/benchmarking/kafka/   testes da lógica de verificação (sem broker)
 ├── rabbitmq/                                projeto Spring Boot dos testes do RabbitMQ
 │   ├── docker-compose.yml                   broker único (RabbitMQ 3.12)
 │   ├── docker-compose-cluster-rabbitmq.yml  cluster de 3 nós (nível avançado, cenários 2 e 3)
 │   ├── rabbitmq-cluster.conf                configuração do cluster (usada pelo compose acima)
-│   └── src/main/java/com/benchmarking/rabbitmq/
-│       └── (mesma organização do projeto kafka)
+│   ├── src/main/java/com/benchmarking/rabbitmq/
+│   │   └── (mesma organização do projeto kafka)
+│   └── src/test/java/com/benchmarking/rabbitmq/ testes da lógica de verificação (sem broker)
 └── resultados/                              dados brutos do TCC, scripts dos gráficos e PDFs gerados
     ├── resultado_cenario_X_Y/               Kafka
     ├── resultado_rabbitmq_cenario_X_Y/      RabbitMQ
@@ -71,7 +75,7 @@ cd repositorio-trabalho-conclusao/kafka
 # 1. sobe o broker
 docker compose up -d
 
-# 2. espera uns 20 s para o Kafka terminar de iniciar e roda os testes
+# 2. espera uns 20 s para o Kafka terminar de iniciar e roda o cenário
 ./mvnw spring-boot:run          # Linux / macOS
 .\mvnw.cmd spring-boot:run      # Windows (PowerShell)
 
@@ -258,6 +262,29 @@ Cada script grava o PDF (e, quando houver, os PNGs e o CSV de resumo) na própri
 
 ---
 
+## Testes da lógica de verificação
+
+Os testes em `src/test` conferem, com entradas conhecidas, a lógica que a ferramenta usa para declarar uma execução correta: se ela detecta mensagens perdidas, duplicadas, entradas inválidas e processos que não terminam. Eles **não precisam de broker nem de Docker**, **não iniciam nenhuma campanha** e não alteram o código dos experimentos: os métodos privados são chamados por reflexão.
+
+```bash
+cd kafka      # ou: cd rabbitmq
+./mvnw test   # Windows: .\mvnw.cmd test
+```
+
+Cada projeto roda em poucos segundos (na primeira vez, o Maven ainda baixa o JUnit). O resultado esperado é `Tests run: 37, Failures: 0` no Kafka e `Tests run: 38, Failures: 0` no RabbitMQ. É preciso um JDK (não só o JRE), porque os testes de processo geram um programa Java mínimo na hora. As linhas `[teste] ...` que aparecem na saída são desse programa e são esperadas.
+
+| Teste | O que verifica |
+|---|---|
+| `cenario2_2/CalculoFalhaConsumidorTest` | Contagem de perdas e duplicatas do Intermediário 2 – Falha do consumidor: lacunas (inclusive a primeira e a última sequência), duplicatas, mensagem processada três vezes, lote reprocessado, perda e duplicata juntas, ordem trocada, falha antes de processar, arquivo incompleto, linha cortada, sequência inválida, métrica ausente, cálculo do tempo de recuperação e ordem rotativa dos níveis |
+| `cenario3_1/RegrasRoteamentoTest` | Gabarito do Avançado 1 – Roteamento: distribuição das chaves (1.500 por região, 2.000 por evento, 500 por combinação), tópico de publicação, assinaturas por lista e por padrão e os totais lidos, úteis e sem destino da Tabela 11 do TCC |
+| `cenario3_comum/UtilTest` | Leitura da saída `CHAVE=valor` dos subprocessos, exigência de métricas, código de saída esperado e **timeout** (o processo que não termina é interrompido e morto); no RabbitMQ, também a leitura do JSON da API de gerenciamento e o resumo estatístico (média e mediana com quantidade par e ímpar) |
+
+**O que os testes não cobrem:** a conferência feita durante a execução nos cenários Avançado 3 – Falha de broker e Intermediário 4 – Sobrecarga prolongada, e a parte da conferência do Avançado 1 que roda junto com o broker. Essa lógica está dentro dos métodos que se comunicam com o broker e, para ser testada sem ele, precisaria ser separada em métodos próprios, o que alteraria o código usado nos experimentos.
+
+> Não use `@SpringBootTest` em testes novos: ele inicia a aplicação inteira, e o método `run()` da classe principal dispara o cenário configurado, ou seja, uma campanha de verdade.
+
+---
+
 ## Tempo de execução e cuidados
 
 - Uma campanha pode levar de minutos a várias horas. Exemplo: o Cenário 3 do nível básico leva cerca de **3 h só na Parte A**, em cada tecnologia.
@@ -278,6 +305,7 @@ Cada script grava o PDF (e, quando houver, os PNGs e o CSV de resumo) na própri
 | Falha de broker não consegue derrubar o container | comando `docker` fora do PATH do terminal | rode a ferramenta no mesmo terminal em que `docker ps` funciona |
 | Containers do cluster caem ou ficam lentos | pouca memória para o Docker | libere cerca de 4 GB para o Docker (no Docker Desktop: Settings → Resources, ou o `.wslconfig` no WSL2) |
 | Erro ao apagar um CSV antigo (Windows) | arquivo aberto no Excel ou sincronizado pelo OneDrive | feche o arquivo ou rode o projeto fora de uma pasta sincronizada |
+| `mvnw test` falha no `UtilTest` com erro de compilação do `Programa.java` | Java instalado sem o compilador (só JRE) | instale um JDK 21 ou mais recente |
 
 ---
 
@@ -299,3 +327,5 @@ Os brokers rodaram nos containers, e a ferramenta de testes rodou diretamente no
 ## Como citar
 
 ALMEIDA, João Lucas Pereira de. **Repositório do trabalho de conclusão de curso**: código, dados brutos e scripts. [*S. l.*]: GitHub, 2026. Disponível em: https://github.com/joaopa24/repositorio-trabalho-conclusao.
+
+Para citar exatamente a versão usada no trabalho, use o link da tag: https://github.com/joaopa24/repositorio-trabalho-conclusao/tree/versao-tcc.
