@@ -1,0 +1,3 @@
+cenario1-baseline-java
+execucao,vazao_msg_s,latencia_media_ms,latencia_min_ms,latencia_max_ms,latencia_p95_ms,latencia_p99_ms
+1,199.97,30.4185,1.5707,724.2476,180.6644,524.6202
