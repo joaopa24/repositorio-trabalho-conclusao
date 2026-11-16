@@ -48,21 +48,21 @@ Produtor e consumidor rodam como **processos Java separados**, iniciados pelo or
 
 ## Requisitos
 
-| Ferramenta | Versão | Observação |
-|---|---|---|
-| Java (JDK) | 21 ou mais recente | o TCC usou o Oracle Java SE 25.0.2 |
-| Docker | Docker Desktop (Windows/macOS) ou Docker Engine + Compose v2 (Linux) | o comando `docker` precisa estar no PATH |
-| Memória para o Docker | cerca de 4 GB | os clusters usam 3 brokers ao mesmo tempo |
-| Git | qualquer | para clonar o repositório |
+| Ferramenta            | Versão                                                               | Observação                                |
+| --------------------- | -------------------------------------------------------------------- | ----------------------------------------- |
+| Java (JDK)            | 21 ou mais recente                                                   | o TCC usou o Oracle Java SE 25.0.2        |
+| Docker                | Docker Desktop (Windows/macOS) ou Docker Engine + Compose v2 (Linux) | o comando `docker` precisa estar no PATH  |
+| Memória para o Docker | cerca de 4 GB                                                        | os clusters usam 3 brokers ao mesmo tempo |
+| Git                   | qualquer                                                             | para clonar o repositório                 |
 
 **Não é preciso instalar o Maven.** Cada projeto traz o Maven Wrapper (`mvnw` / `mvnw.cmd`), que baixa a versão certa na primeira execução.
 
 Portas usadas no computador:
 
-| Tecnologia | Broker único | Cluster |
-|---|---|---|
-| Kafka | 9092 | 19092, 19093, 19094 |
-| RabbitMQ | 5672 (AMQP), 15672 (painel) | 5681–5683 (AMQP), 15681–15683 (painel) |
+| Tecnologia | Broker único                | Cluster                                |
+| ---------- | --------------------------- | -------------------------------------- |
+| Kafka      | 9092                        | 19092, 19093, 19094                    |
+| RabbitMQ   | 5672 (AMQP), 15672 (painel) | 5681–5683 (AMQP), 15681–15683 (painel) |
 
 ---
 
@@ -109,22 +109,22 @@ public void run(String... args) throws Exception {
 }
 ```
 
-| Nível | Cenário (como no TCC) | Linha em `run()` | Broker | Execuções válidas |
-|---|---|---|---|---|
-| Básico | 1 – Baseline | `cenario1.executar();` | único | 10 |
-| Básico | 2 – Consumidor lento | `cenario2.executar();` | único | 10 por valor de prefetch / `max.poll.records` |
-| Básico | 3 – Tamanho da mensagem | `cenario3.executar();` | único | 10 por tamanho (Partes A e B) |
-| Básico | 4 – Múltiplos consumidores | `cenario4.executar();` | único | 10 por configuração |
-| Intermediário | 1 – Garantias de entrega | `cenario2_1.executar();` | único | 10 por nível (Partes A e B) |
-| Intermediário | 2 – Falha do consumidor | `cenario2_2.executar();` | único | 10 por nível |
-| Intermediário | 3 – Dead letter queue | `cenario2_3.executar();` | único | 10 por configuração |
-| Intermediário | 4 – Sobrecarga prolongada | `cenario2_4.executar();` | único | 10 por política |
-| Avançado | 1 – Roteamento | `cenario3_1.executar();` | único | 3 por configuração |
-| Avançado | 2 – Replicação | `cenario3_2.executar();` | **cluster** | 10 por configuração (Partes A e B) |
-| Avançado | 3 – Falha de broker | `cenario3_3.executar();` | **cluster** + comando `docker` | 3 por configuração |
-| Avançado | 4 – Replay | `cenario3_4.executar();` | único | 10 por modo |
+| Nível         | Cenário (como no TCC)      | Linha em `run()`         | Broker                         | Execuções válidas                             |
+| ------------- | -------------------------- | ------------------------ | ------------------------------ | --------------------------------------------- |
+| Básico        | 1 – Baseline               | `cenario1.executar();`   | único                          | 10                                            |
+| Básico        | 2 – Consumidor lento       | `cenario2.executar();`   | único                          | 10 por valor de prefetch / `max.poll.records` |
+| Básico        | 3 – Tamanho da mensagem    | `cenario3.executar();`   | único                          | 10 por tamanho (Partes A e B)                 |
+| Básico        | 4 – Múltiplos consumidores | `cenario4.executar();`   | único                          | 10 por configuração                           |
+| Intermediário | 1 – Garantias de entrega   | `cenario2_1.executar();` | único                          | 10 por nível (Partes A e B)                   |
+| Intermediário | 2 – Falha do consumidor    | `cenario2_2.executar();` | único                          | 10 por nível                                  |
+| Intermediário | 3 – Dead letter queue      | `cenario2_3.executar();` | único                          | 10 por configuração                           |
+| Intermediário | 4 – Sobrecarga prolongada  | `cenario2_4.executar();` | único                          | 10 por política                               |
+| Avançado      | 1 – Roteamento             | `cenario3_1.executar();` | único                          | 3 por configuração                            |
+| Avançado      | 2 – Replicação             | `cenario3_2.executar();` | **cluster**                    | 10 por configuração (Partes A e B)            |
+| Avançado      | 3 – Falha de broker        | `cenario3_3.executar();` | **cluster** + comando `docker` | 3 por configuração                            |
+| Avançado      | 4 – Replay                 | `cenario3_4.executar();` | único                          | 10 por modo                                   |
 
-Todos os cenários fazem uma execução de **aquecimento** antes das válidas e a descartam. Quando há mais de uma configuração, elas rodam **intercaladas, em ordem rotativa**.
+Todos os cenários, exceto o Avançado 4 (Replay), fazem uma execução de aquecimento antes das válidas e a descartam. No Replay, cada execução recria a fila, o stream ou o tópico, e a escrita e a primeira leitura completa preparam o estado das releituras; as 10 execuções são registradas. Quando há mais de uma configuração, elas rodam intercaladas, em ordem rotativa.
 
 O desenho completo de cada cenário (cargas, taxas, métricas e colunas do CSV) está no comentário no topo da classe do orquestrador.
 
@@ -197,10 +197,10 @@ Os cenários Avançado 1 e Avançado 3 têm número de execuções fixo (3) e n�
 
 Cada cenário cria uma pasta **dentro da pasta do projeto em que foi executado** (`kafka/` ou `rabbitmq/`):
 
-| Tecnologia | Pasta | Exemplo |
-|---|---|---|
-| Kafka | `resultado_cenario_<nível>_<cenário>/` | `kafka/resultado_cenario_2_1/resultados-kafka-garantias-latencia.csv` |
-| RabbitMQ | `resultado_rabbitmq_cenario_<nível>_<cenário>/` | `rabbitmq/resultado_rabbitmq_cenario_2_1/resultados-rabbitmq-garantias-latencia.csv` |
+| Tecnologia | Pasta                                           | Exemplo                                                                              |
+| ---------- | ----------------------------------------------- | ------------------------------------------------------------------------------------ |
+| Kafka      | `resultado_cenario_<nível>_<cenário>/`          | `kafka/resultado_cenario_2_1/resultados-kafka-garantias-latencia.csv`                |
+| RabbitMQ   | `resultado_rabbitmq_cenario_<nível>_<cenário>/` | `rabbitmq/resultado_rabbitmq_cenario_2_1/resultados-rabbitmq-garantias-latencia.csv` |
 
 Em geral, cada cenário gera:
 
@@ -223,20 +223,20 @@ A pasta [`resultados/`](resultados/) contém tudo o que foi usado na análise do
 
 As pastas seguem a numeração dos cenários do TCC:
 
-| Nível | Cenário | Kafka | RabbitMQ | Comparativo |
-|---|---|---|---|---|
-| Básico | 1 – Baseline | `resultado_cenario_1_1` | `resultado_rabbitmq_cenario_1_1` | `resultado_comparativo_cenario1` |
-| Básico | 2 – Consumidor lento | `resultado_cenario_1_2` | `resultado_rabbitmq_cenario_1_2` | `resultado_comparativo_cenario2` |
-| Básico | 3 – Tamanho da mensagem | `resultado_cenario_1_3` | `resultado_rabbitmq_cenario_1_3` | `resultado_comparativo_cenario3` |
-| Básico | 4 – Múltiplos consumidores | `resultado_cenario_1_4` | `resultado_rabbitmq_cenario_1_4` | `resultado_comparativo_cenario4` |
-| Intermediário | 1 – Garantias de entrega | `resultado_cenario_2_1` | `resultado_rabbitmq_cenario_2_1` | `resultado_comparativo_cenario5` |
-| Intermediário | 2 – Falha do consumidor | `resultado_cenario_2_2` | `resultado_rabbitmq_cenario_2_2` | `resultado_comparativo_cenario6` |
-| Intermediário | 3 – Dead letter queue | `resultado_cenario_2_3` | `resultado_rabbitmq_cenario_2_3` | `resultado_comparativo_cenario7` |
-| Intermediário | 4 – Sobrecarga prolongada | `resultado_cenario_2_4` | `resultado_rabbitmq_cenario_2_4` | `resultado_comparativo_cenario8` |
-| Avançado | 1 – Roteamento | `resultado_cenario_3_1` | `resultado_rabbitmq_cenario_3_1` | `resultado_comparativo_cenario9` |
-| Avançado | 2 – Replicação | `resultado_cenario_3_2` | `resultado_rabbitmq_cenario_3_2` | `resultado_comparativo_cenario10` |
-| Avançado | 3 – Falha de broker | `resultado_cenario_3_3` | `resultado_rabbitmq_cenario_3_3` | `resultado_comparativo_cenario11` |
-| Avançado | 4 – Replay | `resultado_cenario_3_4` | `resultado_rabbitmq_cenario_3_4` | `resultado_comparativo_cenario12` |
+| Nível         | Cenário                    | Kafka                   | RabbitMQ                         | Comparativo                       |
+| ------------- | -------------------------- | ----------------------- | -------------------------------- | --------------------------------- |
+| Básico        | 1 – Baseline               | `resultado_cenario_1_1` | `resultado_rabbitmq_cenario_1_1` | `resultado_comparativo_cenario1`  |
+| Básico        | 2 – Consumidor lento       | `resultado_cenario_1_2` | `resultado_rabbitmq_cenario_1_2` | `resultado_comparativo_cenario2`  |
+| Básico        | 3 – Tamanho da mensagem    | `resultado_cenario_1_3` | `resultado_rabbitmq_cenario_1_3` | `resultado_comparativo_cenario3`  |
+| Básico        | 4 – Múltiplos consumidores | `resultado_cenario_1_4` | `resultado_rabbitmq_cenario_1_4` | `resultado_comparativo_cenario4`  |
+| Intermediário | 1 – Garantias de entrega   | `resultado_cenario_2_1` | `resultado_rabbitmq_cenario_2_1` | `resultado_comparativo_cenario5`  |
+| Intermediário | 2 – Falha do consumidor    | `resultado_cenario_2_2` | `resultado_rabbitmq_cenario_2_2` | `resultado_comparativo_cenario6`  |
+| Intermediário | 3 – Dead letter queue      | `resultado_cenario_2_3` | `resultado_rabbitmq_cenario_2_3` | `resultado_comparativo_cenario7`  |
+| Intermediário | 4 – Sobrecarga prolongada  | `resultado_cenario_2_4` | `resultado_rabbitmq_cenario_2_4` | `resultado_comparativo_cenario8`  |
+| Avançado      | 1 – Roteamento             | `resultado_cenario_3_1` | `resultado_rabbitmq_cenario_3_1` | `resultado_comparativo_cenario9`  |
+| Avançado      | 2 – Replicação             | `resultado_cenario_3_2` | `resultado_rabbitmq_cenario_3_2` | `resultado_comparativo_cenario10` |
+| Avançado      | 3 – Falha de broker        | `resultado_cenario_3_3` | `resultado_rabbitmq_cenario_3_3` | `resultado_comparativo_cenario11` |
+| Avançado      | 4 – Replay                 | `resultado_cenario_3_4` | `resultado_rabbitmq_cenario_3_4` | `resultado_comparativo_cenario12` |
 
 As pastas **comparativas** não têm CSVs brutos próprios: o script delas lê os CSVs das pastas do Kafka e do RabbitMQ do mesmo cenário, que ficam ao lado, dentro de `resultados/`.
 
@@ -273,11 +273,11 @@ cd kafka      # ou: cd rabbitmq
 
 Cada projeto roda em poucos segundos (na primeira vez, o Maven ainda baixa o JUnit). O resultado esperado é `Tests run: 37, Failures: 0` no Kafka e `Tests run: 38, Failures: 0` no RabbitMQ. É preciso um JDK (não só o JRE), porque os testes de processo geram um programa Java mínimo na hora. As linhas `[teste] ...` que aparecem na saída são desse programa e são esperadas.
 
-| Teste | O que verifica |
-|---|---|
+| Teste                                   | O que verifica                                                                                                                                                                                                                                                                                                                                                                                       |
+| --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `cenario2_2/CalculoFalhaConsumidorTest` | Contagem de perdas e duplicatas do Intermediário 2 – Falha do consumidor: lacunas (inclusive a primeira e a última sequência), duplicatas, mensagem processada três vezes, lote reprocessado, perda e duplicata juntas, ordem trocada, falha antes de processar, arquivo incompleto, linha cortada, sequência inválida, métrica ausente, cálculo do tempo de recuperação e ordem rotativa dos níveis |
-| `cenario3_1/RegrasRoteamentoTest` | Gabarito do Avançado 1 – Roteamento: distribuição das chaves (1.500 por região, 2.000 por evento, 500 por combinação), tópico de publicação, assinaturas por lista e por padrão e os totais lidos, úteis e sem destino da Tabela 11 do TCC |
-| `cenario3_comum/UtilTest` | Leitura da saída `CHAVE=valor` dos subprocessos, exigência de métricas, código de saída esperado e **timeout** (o processo que não termina é interrompido e morto); no RabbitMQ, também a leitura do JSON da API de gerenciamento e o resumo estatístico (média e mediana com quantidade par e ímpar) |
+| `cenario3_1/RegrasRoteamentoTest`       | Gabarito do Avançado 1 – Roteamento: distribuição das chaves (1.500 por região, 2.000 por evento, 500 por combinação), tópico de publicação, assinaturas por lista e por padrão e os totais lidos, úteis e sem destino da Tabela 11 do TCC                                                                                                                                                           |
+| `cenario3_comum/UtilTest`               | Leitura da saída `CHAVE=valor` dos subprocessos, exigência de métricas, código de saída esperado e **timeout** (o processo que não termina é interrompido e morto); no RabbitMQ, também a leitura do JSON da API de gerenciamento e o resumo estatístico (média e mediana com quantidade par e ímpar)                                                                                                |
 
 **O que os testes não cobrem:** a conferência feita durante a execução nos cenários Avançado 3 – Falha de broker e Intermediário 4 – Sobrecarga prolongada, e a parte da conferência do Avançado 1 que roda junto com o broker. Essa lógica está dentro dos métodos que se comunicam com o broker e, para ser testada sem ele, precisaria ser separada em métodos próprios, o que alteraria o código usado nos experimentos.
 
@@ -297,28 +297,28 @@ Cada projeto roda em poucos segundos (na primeira vez, o Maven ainda baixa o JUn
 
 ## Problemas comuns
 
-| Sintoma | Causa provável | O que fazer |
-|---|---|---|
-| `port is already allocated` ao subir o compose | outro compose (ou outro programa) usando a porta | `docker ps` e `docker compose down` no que estiver ligado |
-| Kafka recusa conexão logo depois do `up -d` | o broker ainda está iniciando | espere 20–30 s e rode de novo |
-| "Este cenário precisa do cluster de 3 brokers/nós" | cluster desligado, incompleto ou ainda subindo | confira com `docker ps` (e `rabbitmqctl cluster_status` no RabbitMQ) |
-| Falha de broker não consegue derrubar o container | comando `docker` fora do PATH do terminal | rode a ferramenta no mesmo terminal em que `docker ps` funciona |
-| Containers do cluster caem ou ficam lentos | pouca memória para o Docker | libere cerca de 4 GB para o Docker (no Docker Desktop: Settings → Resources, ou o `.wslconfig` no WSL2) |
-| Erro ao apagar um CSV antigo (Windows) | arquivo aberto no Excel ou sincronizado pelo OneDrive | feche o arquivo ou rode o projeto fora de uma pasta sincronizada |
-| `mvnw test` falha no `UtilTest` com erro de compilação do `Programa.java` | Java instalado sem o compilador (só JRE) | instale um JDK 21 ou mais recente |
+| Sintoma                                                                   | Causa provável                                        | O que fazer                                                                                             |
+| ------------------------------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `port is already allocated` ao subir o compose                            | outro compose (ou outro programa) usando a porta      | `docker ps` e `docker compose down` no que estiver ligado                                               |
+| Kafka recusa conexão logo depois do `up -d`                               | o broker ainda está iniciando                         | espere 20–30 s e rode de novo                                                                           |
+| "Este cenário precisa do cluster de 3 brokers/nós"                        | cluster desligado, incompleto ou ainda subindo        | confira com `docker ps` (e `rabbitmqctl cluster_status` no RabbitMQ)                                    |
+| Falha de broker não consegue derrubar o container                         | comando `docker` fora do PATH do terminal             | rode a ferramenta no mesmo terminal em que `docker ps` funciona                                         |
+| Containers do cluster caem ou ficam lentos                                | pouca memória para o Docker                           | libere cerca de 4 GB para o Docker (no Docker Desktop: Settings → Resources, ou o `.wslconfig` no WSL2) |
+| Erro ao apagar um CSV antigo (Windows)                                    | arquivo aberto no Excel ou sincronizado pelo OneDrive | feche o arquivo ou rode o projeto fora de uma pasta sincronizada                                        |
+| `mvnw test` falha no `UtilTest` com erro de compilação do `Programa.java` | Java instalado sem o compilador (só JRE)              | instale um JDK 21 ou mais recente                                                                       |
 
 ---
 
 ## Ambiente usado no TCC
 
-| Item | Valor |
-|---|---|
-| Computador | Intel Core i5-1135G7 (4 núcleos, 8 processadores lógicos), 8 GB de RAM |
-| Sistema | Windows 11, Docker Desktop com backend WSL2 (cerca de 3,8 GB de memória) |
-| Java | compilado para Java 21, executado no Oracle Java SE 25.0.2 |
-| Spring Boot | 3.2.5 (clientes `kafka-clients` 3.6.2 e `amqp-client` 5.19.0) |
-| Kafka | 3.5, imagem `confluentinc/cp-kafka:7.5.0`, modo ZooKeeper; 2 GB de heap (broker único) e 768 MB por broker (cluster) |
-| RabbitMQ | 3.12, imagem `rabbitmq:3.12-management` |
+| Item        | Valor                                                                                                                |
+| ----------- | -------------------------------------------------------------------------------------------------------------------- |
+| Computador  | Intel Core i5-1135G7 (4 núcleos, 8 processadores lógicos), 8 GB de RAM                                               |
+| Sistema     | Windows 11, Docker Desktop com backend WSL2 (cerca de 3,8 GB de memória)                                             |
+| Java        | compilado para Java 21, executado no Oracle Java SE 25.0.2                                                           |
+| Spring Boot | 3.2.5 (clientes `kafka-clients` 3.6.2 e `amqp-client` 5.19.0)                                                        |
+| Kafka       | 3.5, imagem `confluentinc/cp-kafka:7.5.0`, modo ZooKeeper; 2 GB de heap (broker único) e 768 MB por broker (cluster) |
+| RabbitMQ    | 3.12, imagem `rabbitmq:3.12-management`                                                                              |
 
 Os brokers rodaram nos containers, e a ferramenta de testes rodou diretamente no Windows. Nos clusters, os três nós rodam **na mesma máquina**, sem rede física entre eles.
 
