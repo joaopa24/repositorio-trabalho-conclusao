@@ -1,0 +1,16 @@
+VERIFICAÇÃO DO TETO DE VAZÃO DO KAFKA (Cenário 3 do nível básico)
+Verificação complementar, feita fora das campanhas do cenário.
+Ambiente: Docker Desktop/WSL2, broker único (cp-kafka 7.5.0, ZooKeeper),
+contêiner kafka-broker. A ferramenta roda dentro do contêiner, sem passar
+pelo repasse de portas do Windows.
+
+1) Criação do tópico (1 partição, fator de replicação 1)
+docker exec kafka-broker kafka-topics --create --topic teste-teto --partitions 1 --replication-factor 1 --bootstrap-server 127.0.0.1:9092
+
+2) Teste (repetido 6 vezes seguidas, no mesmo tópico)
+docker exec -e KAFKA_HEAP_OPTS="-Xmx512M" kafka-broker kafka-producer-perf-test --topic teste-teto --num-records 1000 --record-size 512000 --throughput -1 --producer-props bootstrap.servers=127.0.0.1:9092 acks=1 linger.ms=0 batch.size=65536
+
+Mesma configuração do produtor do cenário (ProdutorCenario3.java).
+Heap da ferramenta limitado a 512 MB, porque o contêiner define 2 GB para o
+broker e a ferramenta herdaria esse valor. Uma primeira tentativa, sem esse
+ajuste, foi descartada.
